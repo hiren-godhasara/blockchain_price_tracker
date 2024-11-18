@@ -1,17 +1,25 @@
 import { Module } from '@nestjs/common';
-import { ScheduleModule } from '@nestjs/schedule';
-import { PricesModule } from './prices/prices.module';
-import { AlertsModule } from './alerts/alerts.module';
-import { EmailModule } from './email/email.module';
-import { SwapModule } from './swap/swap.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { PricingModule } from './pricing/pricing.module';
 
 @Module({
   imports: [
-    ScheduleModule.forRoot(),
-    PricesModule,
-    AlertsModule,
-    EmailModule,
-    SwapModule,
+    TypeOrmModule.forRoot({
+      type: 'postgres',
+      host: 'localhost',
+      port: 5432,
+      username: 'postgres',
+      password: 'postgres',
+      database: 'crypto',
+      autoLoadEntities: true,
+      synchronize: true,
+    }),
+    PricingModule,
   ],
+  controllers: [],
+  providers: [],
 })
-export class AppModule {}
+
+
+
+export class AppModule { }
